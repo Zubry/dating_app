@@ -7,6 +7,10 @@ defmodule DatingAppWeb.Router do
 
   scope "/api", DatingAppWeb do
     pipe_through :api
+
+    resources "/profiles", ProfileController, only: [:index, :create]
+    resources "/likes", LikeController, only: [:create]
+    resources "/matches", MatchController, only: [:index]
   end
 
   # Enables LiveDashboard only for development
