@@ -8,13 +8,14 @@ defmodule DatingApp.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      DatingApp.Repo,
+      # DatingApp.Repo,
       # Start the Telemetry supervisor
       DatingAppWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: DatingApp.PubSub},
       # Start the Endpoint (http/https)
-      DatingAppWeb.Endpoint
+      DatingAppWeb.Endpoint,
+      DatingApp.Profile.Supervisor
       # Start a worker by calling: DatingApp.Worker.start_link(arg)
       # {DatingApp.Worker, arg}
     ]
