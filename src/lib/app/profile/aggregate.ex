@@ -1,11 +1,11 @@
 defmodule DatingApp.Profile.Aggregate do
   defstruct id: nil, name: nil, likes: MapSet.new(), dislikes: MapSet.new()
 
-  alias DatingApp.Commands.{OpenProfile, Like, Dislike}
-  alias DatingApp.Events.{ProfileOpened, Liked, Disliked}
+  alias DatingApp.Profile.Commands.{Open, Like, Dislike}
+  alias DatingApp.Profile.Events.{Opened, Liked, Disliked}
 
-  def execute(%__MODULE__{ id: nil }, %OpenProfile{ id: id }) do
-    %ProfileOpened{ id: id }
+  def execute(%__MODULE__{ id: nil }, %Open{ id: id }) do
+    %Opened{ id: id }
   end
 
   def execute(%__MODULE__{ id: nil }, %Like{}) do
@@ -46,7 +46,7 @@ defmodule DatingApp.Profile.Aggregate do
     end
   end
 
-  def apply(%__MODULE__{} = profile, %ProfileOpened{ id: id }) do
+  def apply(%__MODULE__{} = profile, %Opened{ id: id }) do
     %__MODULE__{ profile | id: id }
   end
 

@@ -1,9 +1,9 @@
 defmodule DatingApp.Matches.EventHandler do
   use Commanded.Event.Handler, application: DatingApp.Profile.Application, start_from: :origin, name: __MODULE__
 
-  alias DatingApp.Events.{ProfileOpened, Liked}
+  alias DatingApp.Profile.Events.{Opened, Liked}
 
-  def handle(%ProfileOpened{ id: id }, _metadata) do
+  def handle(%Opened{ id: id }, _metadata) do
     DatingApp.Matches.open(id)
 
     :ok
