@@ -5,7 +5,7 @@ defmodule DatingAppWeb.LikeController do
 
   action_fallback DatingAppWeb.FallbackController
 
-  def create(conn, %{"like" => %{ "id" => id, "liked_id" => liked_id }}) do
+  def create(conn, %{ "profile_id" => id, "id" => liked_id }) do
     with :ok <- User.create_like(%{ id: id, liked_id: liked_id }) do
       conn
       |> put_status(:created)
