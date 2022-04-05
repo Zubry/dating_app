@@ -1,8 +1,9 @@
 defmodule DatingApp.Profile.Router do
   use Commanded.Commands.Router
 
-  alias DatingApp.Profile.Aggregator
-  alias DatingApp.Commands.OpenProfile
+  alias DatingApp.Profile.Aggregate
+  alias DatingApp.Commands.{OpenProfile, Like, Dislike}
 
-  dispatch OpenProfile, to: Aggregator, identity: :id
+  identify Aggregate, by: :id
+  dispatch [OpenProfile, Like, Dislike], to: Aggregate
 end
