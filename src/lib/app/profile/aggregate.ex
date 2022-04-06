@@ -1,5 +1,5 @@
 defmodule DatingApp.Profile.Aggregate do
-  defstruct id: nil, name: nil, likes: MapSet.new(), dislikes: MapSet.new()
+  defstruct id: nil, likes: MapSet.new(), dislikes: MapSet.new()
 
   alias DatingApp.Profile.Commands.{Open, Like, Dislike}
   alias DatingApp.Profile.Events.{Opened, Liked, Disliked}

@@ -3,6 +3,7 @@ defmodule DatingAppWeb.UserSocket do
 
   ## Channels
   # channel "room:*", DatingAppWeb.RoomChannel
+  channel "chat:lobby", DatingAppWeb.ChatChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
