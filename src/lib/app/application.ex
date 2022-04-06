@@ -16,7 +16,8 @@ defmodule DatingApp.Application do
       # Start the Endpoint (http/https)
       DatingAppWeb.Endpoint,
       DatingApp.Profile.Supervisor,
-      DatingApp.Matches.Supervisor
+      DatingApp.Matches.Supervisor,
+      DatingApp.Messenger.Supervisor
       # Start a worker by calling: DatingApp.Worker.start_link(arg)
       # {DatingApp.Worker, arg}
     ]
