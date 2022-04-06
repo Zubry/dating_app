@@ -2,8 +2,7 @@ defmodule DatingApp.Messenger.Router do
   use Commanded.Commands.Router
 
   alias DatingApp.Messenger.Aggregate
-  alias DatingApp.Messenger.Commands.{CreateRoom, Message}
+  alias DatingApp.Messenger.Commands.{Message}
 
-  dispatch CreateRoom, to: Aggregate, identity: :id
-  dispatch Message, to: Aggregate, identity: :room
+  dispatch Message, to: Aggregate, identity: :from
 end

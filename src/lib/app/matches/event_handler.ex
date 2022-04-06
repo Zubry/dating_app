@@ -1,5 +1,5 @@
 defmodule DatingApp.Matches.EventHandler do
-  use Commanded.Event.Handler, application: DatingApp.Profile.Application, start_from: :origin, name: __MODULE__
+  use Commanded.Event.Handler, application: DatingApp.Commanded.Application, start_from: :origin, name: __MODULE__
 
   alias DatingApp.Profile.Events.{Opened, Liked}
 

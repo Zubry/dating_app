@@ -57,4 +57,8 @@ defmodule DatingApp.Profile.Aggregate do
   def apply(%__MODULE__{} = profile, %Disliked{ disliked_id: disliked_id }) do
     update_in(profile.dislikes, fn dislikes -> MapSet.put(dislikes, disliked_id) end)
   end
+
+  def apply(%__MODULE__{} = profile, _) do
+    profile
+  end
 end
