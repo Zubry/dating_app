@@ -1,7 +1,6 @@
 defmodule DatingApp.Matches do
   def open(id) do
-    name = {:via, Registry, {DatingApp.Matches.Registry, id}}
-    DynamicSupervisor.start_child(DatingApp.Matches.DynamicSupervisor, {DatingApp.Matches.Agent, name})
+    DynamicSupervisor.start_child(DatingApp.Matches.DynamicSupervisor, {DatingApp.Matches.Agent, id})
   end
 
   def like(id, liked_id) do
@@ -19,6 +18,13 @@ defmodule DatingApp.Matches do
   def get(id) do
     case Registry.lookup(DatingApp.Matches.Registry, id) do
       [{pid, _}] -> DatingApp.Matches.Agent.get(pid)
+      _ -> {:error, :not_found}
+    end
+  end
+
+  def add_message(id, from, to, message) do
+    case Registry.lookup(DatingApp.Matches.Registry, id) do
+      [{pid, _}] -> DatingApp.Matches.Agent.add_message(pid, from, to, message)
       _ -> {:error, :not_found}
     end
   end

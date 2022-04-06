@@ -1,10 +1,10 @@
 defmodule DatingApp.Matches.Agent do
-  defstruct matched: MapSet.new(), pending: MapSet.new(), received: MapSet.new()
+  defstruct id: nil, matched: MapSet.new(), pending: MapSet.new(), received: MapSet.new(), messages: %{}
 
   use Agent
 
-  def start_link(name) do
-    Agent.start_link(fn -> %__MODULE__{} end, name: name)
+  def start_link(id) do
+    Agent.start_link(fn -> %__MODULE__{ id: id } end, name: {:via, Registry, {DatingApp.Matches.Registry, id}})
   end
 
   def send_like(pid, liked_id) do
@@ -25,6 +25,16 @@ defmodule DatingApp.Matches.Agent do
         update_in(state.matched, fn set -> MapSet.put(set, id) end)
       else
         update_in(state.received, fn set -> MapSet.put(set, id) end)
+      end
+    end)
+  end
+
+  def add_message(pid, from, to, message) do
+    Agent.update(pid, fn state ->
+      if state.id == from do
+        put_in(state.messages[to], %{from: from, message: message})
+      else
+        put_in(state.messages[from], %{from: from, message: message})
       end
     end)
   end
