@@ -63,4 +63,19 @@ defmodule DatingApp.User do
   def list_matches(id) do
     [Matches.get(id)]
   end
+
+  @doc """
+  Gets a single messages.
+
+  Raises if the Messages does not exist.
+
+  ## Examples
+
+      iex> get_messages!(123)
+      %Messages{}
+
+  """
+  def get_messages!(id) do
+    DatingApp.Messages.get(id)
+  end
 end

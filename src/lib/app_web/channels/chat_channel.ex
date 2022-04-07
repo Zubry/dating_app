@@ -2,9 +2,24 @@ defmodule DatingAppWeb.ChatChannel do
   use DatingAppWeb, :channel
 
   @impl true
-  def join("chat:lobby", payload, socket) do
-    IO.inspect(payload)
+  def join("chat:" <> id, _payload, socket) do
+    Phoenix.PubSub.subscribe(DatingApp.PubSub, "user:" <> id)
+
+    send(self(), {:after_join, id})
+
     {:ok, socket}
+  end
+
+  @impl true
+  def handle_info({:after_join, id}, socket) do
+    messages = DatingApp.User.get_messages!(id).messages
+    push(socket, "messages:initial", messages)
+    {:noreply, socket}
+  end
+
+  def handle_info({:message, from, message}, socket) do
+    push(socket, "message", %{ from: from, message: message })
+    {:noreply, socket}
   end
 
   # Channels can be used in a request/response fashion

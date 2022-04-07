@@ -14,6 +14,9 @@ defmodule DatingApp.Messages.EventHandler do
     DatingApp.Messages.add_message(from, from, to, message)
     DatingApp.Messages.add_message(to, from, to, message)
 
+    Phoenix.PubSub.broadcast(DatingApp.PubSub, "user:" <> to, {:message, from, message})
+    Phoenix.PubSub.broadcast(DatingApp.PubSub, "user:" <> from, {:message, from, message})
+
     :ok
   end
 

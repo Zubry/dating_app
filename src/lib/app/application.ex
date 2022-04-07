@@ -17,7 +17,7 @@ defmodule DatingApp.Application do
       DatingAppWeb.Endpoint,
       {DatingApp.Commanded.Application, []},
       DatingApp.Matches.Supervisor,
-      DatingApp.Messages.Supervisor
+      DatingApp.Messages.Supervisor,
       # Start a worker by calling: DatingApp.Worker.start_link(arg)
       # {DatingApp.Worker, arg}
     ]

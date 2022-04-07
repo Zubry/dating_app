@@ -173,4 +173,61 @@ defmodule DatingApp.UserTest do
       assert %Ecto.Changeset{} = User.change_match(match)
     end
   end
+
+  describe "messages" do
+    alias DatingApp.User.Messages
+
+    @valid_attrs %{}
+    @update_attrs %{}
+    @invalid_attrs %{}
+
+    def messages_fixture(attrs \\ %{}) do
+      {:ok, messages} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> User.create_messages()
+
+      messages
+    end
+
+    test "list_messages/0 returns all messages" do
+      messages = messages_fixture()
+      assert User.list_messages() == [messages]
+    end
+
+    test "get_messages!/1 returns the messages with given id" do
+      messages = messages_fixture()
+      assert User.get_messages!(messages.id) == messages
+    end
+
+    test "create_messages/1 with valid data creates a messages" do
+      assert {:ok, %Messages{} = messages} = User.create_messages(@valid_attrs)
+    end
+
+    test "create_messages/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = User.create_messages(@invalid_attrs)
+    end
+
+    test "update_messages/2 with valid data updates the messages" do
+      messages = messages_fixture()
+      assert {:ok, %Messages{} = messages} = User.update_messages(messages, @update_attrs)
+    end
+
+    test "update_messages/2 with invalid data returns error changeset" do
+      messages = messages_fixture()
+      assert {:error, %Ecto.Changeset{}} = User.update_messages(messages, @invalid_attrs)
+      assert messages == User.get_messages!(messages.id)
+    end
+
+    test "delete_messages/1 deletes the messages" do
+      messages = messages_fixture()
+      assert {:ok, %Messages{}} = User.delete_messages(messages)
+      assert_raise Ecto.NoResultsError, fn -> User.get_messages!(messages.id) end
+    end
+
+    test "change_messages/1 returns a messages changeset" do
+      messages = messages_fixture()
+      assert %Ecto.Changeset{} = User.change_messages(messages)
+    end
+  end
 end

@@ -11,6 +11,7 @@ defmodule DatingAppWeb.Router do
     resources "/profiles", ProfileController, only: [:index, :create] do
       resources "/likes", LikeController, only: [:create]
       resources "/matches", MatchController, only: [:index]
+      resources "/messages", MessagesController, only: [:show]
     end
   end
 
