@@ -4,9 +4,9 @@ defmodule DatingApp.Messenger.Aggregate do
   alias DatingApp.Messenger.Commands.{Message}
   alias DatingApp.Messenger.Events.{Messaged}
 
-  def execute(_state, %Message{ id: id, from: from, to: to, message: message }) do
+  def execute(_state, %Message{ from: from, to: to, message: message }) do
     if DatingApp.Matches.matched?(from, to) do
-      %Messaged{ id: id, from: from, to: to, message: message }
+      %Messaged{ from: from, to: to, message: message }
     else
       {:error, :not_matched}
     end

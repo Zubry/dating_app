@@ -78,4 +78,8 @@ defmodule DatingApp.User do
   def get_messages!(id) do
     DatingApp.Messages.get(id)
   end
+
+  def create_message(from, to, message) do
+    DatingApp.Messenger.message(from, to, message)
+  end
 end
