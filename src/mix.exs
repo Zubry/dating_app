@@ -43,7 +43,9 @@ defmodule DatingApp.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:commanded, "~> 1.3"}
+      {:commanded, "~> 1.3"},
+      {:riakc, github: "basho/riak-erlang-client"},
+      {:poolboy, "~> 1.5.1"}
     ]
   end
 

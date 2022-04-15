@@ -18,6 +18,7 @@ defmodule DatingApp.Application do
       {DatingApp.Commanded.Application, []},
       DatingApp.Matches.Supervisor,
       DatingApp.Messages.Supervisor,
+      Riak.Supervisor
       # Start a worker by calling: DatingApp.Worker.start_link(arg)
       # {DatingApp.Worker, arg}
     ]
